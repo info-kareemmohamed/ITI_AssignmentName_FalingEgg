@@ -19,7 +19,6 @@
             width: 300px;
             height: 300px;
 
-
         }
 
 
@@ -31,7 +30,7 @@
             background-size: cover;
         }
 
-        #username {
+        #myusername {
             color: black;
             font-size: 50px;
 
@@ -48,17 +47,93 @@
             font-size: 35px;
 
         }
+
+
+        .container {
+            text-align: center;
+            border: 2px solid #000;
+            width: 600px;
+            height: 400px;
+            margin-top: 90px;
+            margin-left: 450px;
+            background-color: aqua;
+            font-size: 20px;
+            position: absolute;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            margin-top: 50px;
+            width: 100px;
+            height: 30px;
+        }
+
+        #myForm {
+
+            padding: 120px;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        .haret-container {
+            display: flex;
+            width: 100px;
+            height: 50px;
+
+        }
+
+        .haret-container img {
+            margin-right: 5px;
+        }
     </style>
 </head>
 
 <body>
 
+    <div class="container">
+        <form id="myForm">
+            <label for="text">Enter your name</label>
+            <input type="text" required><br>
+            <span id="usernameError" class="error-message"></span>
 
+
+            <p>Level</p>
+
+            <input type="radio" id="checkbox1" name="level" value="Difficult" checked>
+            <label for="checkbox1">Difficult</label>
+
+            <input type="radio" id="checkbox2" name="level" value="Easy">
+            <label for="checkbox2">Easy</label>
+
+            <input type="radio" id="checkbox3" name="level" value="Medium">
+            <label for="checkbox3">Medium</label><br>
+
+            <input type="submit">
+        </form>
+    </div>
     <div id="settingsegg">
-        <p id="username">hi karem</p>
-        <p id="Scor">Scor</p>
-        <p id="Number_of_Eggs">Number of eggs</p>
+        <p id="myusername">HI</p>
+        <p id="Scor">Scor 0</p>
+        <p id="Number_of_Eggs">Number of eggs 0</p>
 
+
+       
+            <div class="haret-container">
+                <img src="images/haret.png" alt="Image 1">
+                <img src="images/haret.png" alt="Image 2">
+                <img src="images/haret.png" alt="Image 3">
+              </div>
+
+        
     </div>
 
     <img src="images/10.png" id="imagess">
@@ -68,6 +143,8 @@
     <script src="eggFallingEgg.js"></script>
     <script src="eggs.js"></script>
     <script src="basket.js"></script>
+    <script src="bomb.js"></script>
+    <script src="startScreen.js"></script>
     <script src="consumingScript.js"></script>
 </body>
 

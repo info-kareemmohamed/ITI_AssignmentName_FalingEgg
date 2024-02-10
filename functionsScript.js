@@ -1,39 +1,19 @@
 
-const SettingsEgg = {
-    audiocount: 5,
-    textScor: document.getElementById("Scor"),
-    textNumberOfEggs: document.getElementById("Number_of_Eggs")
-}
-
 
 
 // Function to check if the two images overlap
-function checkImagesOverlap(image1, image2) {
+function checkImagesOverlap(image1, image2, imageType) {
     // Calculate the absolute horizontal distance between the centers of the two images
     let horizontalDistance = Math.abs(image1.offsetLeft + image1.width / 2 - (image2.offsetLeft + image2.width / 2));
-
     // Calculate the absolute vertical distance between the centers of the two images
     let verticalDistance = Math.abs(image1.offsetTop + image1.height / 2 - (image2.offsetTop + image2.height / 2));
 
-
     // Check if the images overlap within a certain threshold (e.g., 50 pixels) in both directions
-    if (horizontalDistance <= 50 && verticalDistance <= 50) {
-        // Hide the image 
-        image1.hidden = true;
-        Egg.incrementScor();
-        SettingsEgg.textScor.textContent = "Scor " + Egg.getScor();
-
-
-        if (Egg.getScor() >= SettingsEgg.audiocount) {
-            SettingsEgg.audiocount += 10;
-            playAudio("Congratulation.MP4").loop = false;
-        }
-
+    if (horizontalDistance <= 70 && verticalDistance <= 50) {
+        return true;
     }
-    SettingsEgg.textNumberOfEggs.textContent = "Number of eggs " + Egg.getCount();
+    return false;
 }
-
-
 
 
 
@@ -51,8 +31,6 @@ function getRandomNumbers(min, max) {
 
 
 
-
-
 function playAudio(nameAudio) {
     let audio = new Audio(nameAudio);
     audio.loop = true;
@@ -61,18 +39,33 @@ function playAudio(nameAudio) {
 }
 
 
+function getUserInput(question) {
+    // Initialize the user input variable
+    let userInput = "";
 
-
-
-
-function Question_in_Prompt(question) {
-    let UserName = "";
+    // Continue prompting until a non-numeric input is received
     do {
-        UserName = prompt(question);
+        userInput = prompt(question);
+    } while (!isNaN(userInput)); // Check if the input is numeric
 
-
-    } while (!isNaN(UserName))
-    return UserName;
+    // Return the valid non-numeric user input
+    return userInput;
 }
 
 
+function displayErrorMessage(errorObject, text, time = 2000) {
+    // Show the error message
+    errorObject.style.display = "block";
+    // Set the error message text
+    errorObject.textContent = text;
+    // Hide the error message after a specified time
+    setTimeout(() => {
+        errorObject.style.display = "none";
+    }, time);
+}
+
+
+
+function checkText(text) {
+    return text == "" || !isNaN(text);
+}

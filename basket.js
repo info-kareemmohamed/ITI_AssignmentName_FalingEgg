@@ -1,7 +1,9 @@
 
 class Basket extends FallingEgg {
-    constructor(image) {
+
+    constructor(image, speed = 50) {
         super(image);
+        this.speed = speed;
         this.checkMoveImage();
     }
 
@@ -10,10 +12,10 @@ class Basket extends FallingEgg {
         let image = this.getImage();
         const currentLeft = parseInt(image.style.left) || 0;
 
-        if (direction === 'right' && currentLeft < (window.innerWidth - image.width - 30)) {
-            image.style.left = (currentLeft + 30) + 'px';
+        if (direction === 'right' && currentLeft < (window.innerWidth - image.width - this.speed)) {
+            image.style.left = (currentLeft + this.speed) + 'px';
         } else if (direction === 'left' && currentLeft > 0) {
-            image.style.left = (currentLeft - 30) + 'px';
+            image.style.left = (currentLeft - this.speed) + 'px';
         }
     }
 

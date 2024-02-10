@@ -2,13 +2,16 @@
 class Egg extends FallingEgg {
     static #count = 0;
     static #scor = 0;
+    static #audiocount = 5;
     #top = 0;
     #id = null;
     #arrayImageSrc = [];
 
+
     constructor(eggImage) {
         super(eggImage);
-        Egg.#count++;
+        if (this.constructor == Egg)
+            Egg.#count++;
     }
 
     startEgg() {
@@ -18,11 +21,11 @@ class Egg extends FallingEgg {
         this.getImage().style.marginLeft = (getRandomNumbers(10, window.innerWidth - this.getImage().width) - 8) + "px";
 
     }
-    setTop(top) {
+    set top(top) {
         this.#top = top;
     }
 
-    getTop() {
+    get top() {
         return this.#top;
     }
     setArrayImageSrc(arraySrc) {
@@ -45,16 +48,22 @@ class Egg extends FallingEgg {
         Egg.#scor++;
     }
 
-
+    static decrement() {
+        if (Egg.#scor >= 5) Egg.#scor -= 5;
+        else if (Egg.#scor > 0) Egg.#scor = 0;
+    }
     // Function to move the image down
-    moveDown(basketImage, speedImage) {
+    moveDown(basketImage, speedEgg) {
         let image = this.getImage();
+        let textScor = document.getElementById("Scor");
+        let textNumberOfEggs = document.getElementById("Number_of_Eggs");
+
 
         this.#id = setInterval(() => {
-            this.#top += 10;
+            this.#top += 5;
 
             // Check if the image is still within the vertical boundaries
-            if (this.#top < (window.innerHeight - (image.height - 10))) {
+            if (this.#top < (window.innerHeight - (image.height - 5))) {
                 image.style.top = this.#top + "px";
                 this.setX(image.offsetLeft);
                 this.setY(image.offsetTop);
@@ -69,10 +78,32 @@ class Egg extends FallingEgg {
                 }, 1000);
 
             }
-            checkImagesOverlap(this.getImage(), basketImage);
+            if (checkImagesOverlap(this.getImage(), basketImage))
+                this.eggOverlap(image, textScor);
 
-        }, speedImage);
+            textNumberOfEggs.textContent = "Number of eggs " + Egg.getCount();
+
+
+        }, speedEgg);
     }
+
+
+
+
+    eggOverlap(image, textScor) {
+        // Hide the image 
+        image.hidden = true;
+        Egg.incrementScor();
+        textScor.textContent = "Scor " + Egg.getScor();
+
+        if (Egg.getScor() >= Egg.#audiocount) {
+            Egg.#audiocount += 10;
+            playAudio("Audio/Congratulation.MP4").loop = false;
+        }
+
+    }
+
+
 
 
 
